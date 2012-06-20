@@ -3,77 +3,82 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:orientation="vertical" >
-
+
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/labelTaskEditTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/task_edit_title_label"
-        android:textAppearance="?android:attr/textAppearanceLarge"/>
-
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
     <EditText
-        android:id="@+id/editText1"
+        android:id="@+id/editTaskEditTitle"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:ems="10" android:layout_marginBottom="15dp" android:inputType="text">
+        android:layout_marginBottom="15dp"
+        android:ems="10"
+        android:inputType="text" >
 
         <requestFocus />
     </EditText>
-
+
     <TextView
-        android:id="@+id/textView1"
+        android:id="@+id/labelEditTaskPriority"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/task_edit_priority_label"
-        android:textAppearance="?android:attr/textAppearanceLarge"/>
+        android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center" android:layout_marginBottom="15dp">
-
+
         <TextView
-            android:id="@+id/textView3"
+            android:id="@+id/labelEditTaskPriorityLow"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginRight="10dp"
             android:layout_marginTop="15dp"
             android:text="@string/task_edit_priority_low_label"
             android:textSize="22dp" />
-
+
         <RatingBar
-            android:id="@+id/ratingBar1"
+            android:id="@+id/ratingBarEditTaskPriority"
             android:layout_width="172dp"
             android:layout_height="wrap_content"
             android:numStars="3"
             android:stepSize="1" />
-
+
         <TextView
-            android:id="@+id/TextView01"
+            android:id="@+id/labelEditTaskPriorityHigh"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
             android:layout_marginTop="15dp"
             android:text="@string/task_edit_priority_high_label"
             android:textSize="22dp" />
-    </LinearLayout>
 
+    </LinearLayout>
+
     <TextView
-        android:id="@+id/textView4"
+        android:id="@+id/labelEditTaskComment"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/task_edit_comment_label"
-        android:textAppearance="?android:attr/textAppearanceLarge"/>
-
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
     <EditText
-        android:id="@+id/editText2"
+        android:id="@+id/editTaskEditComment"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="5dp"
         android:ems="10"
-        android:inputType="textMultiLine" android:layout_marginBottom="5dp" android:minLines="6"/>
-
+        android:inputType="textMultiLine"
+        android:minLines="6" android:layout_gravity="top"/>
+
     <Button
-        android:id="@+id/button1"
+        android:id="@+id/buttonEditTaskSave"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="left"
