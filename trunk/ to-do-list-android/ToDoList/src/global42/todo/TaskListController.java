@@ -30,7 +30,7 @@ public class TaskListController{
 		return instance;
 	}
 	public void addTask(String title){
-		Task newTask = new Task(title, TaskStatus.Active, TaskPriority.Normal, new String());
+		Task newTask = new Task(this.dataSource,title, TaskStatus.Active, TaskPriority.Normal, new String());
 		tasks.add(newTask);
 	}
 

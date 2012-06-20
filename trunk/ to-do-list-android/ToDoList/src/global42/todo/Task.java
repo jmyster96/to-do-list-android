@@ -17,6 +17,7 @@ public class Task {
 	private TaskStatus status;
 	private TaskPriority priority;
 	private String comment;
+	private TasksDataSource dataSource;
 
 	/**
 	 * @param title
@@ -24,8 +25,9 @@ public class Task {
 	 * @param priority
 	 * @param comment
 	 */
-	public Task(String title, TaskStatus status, TaskPriority priority, String comment) {
+	public Task(TasksDataSource dataSource, String title, TaskStatus status, TaskPriority priority, String comment) {
 		super();
+		this.dataSource = dataSource;
 		this.title = title;
 		this.status = status;
 		this.priority = priority;
@@ -33,10 +35,13 @@ public class Task {
 		this.createdOnDate = new Date();
 	}
 	
-	public Task() {
-		
+	public Task(TasksDataSource dataSource) {
+		this(dataSource,null,null,null,null);
 	}
 	
+	public void save(){
+		this.dataSource.insert(this);
+	}
 	public String getTitle() {
 		return title;
 	}

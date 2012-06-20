@@ -83,7 +83,7 @@ public class TasksDataSource {
 	}
 
 	private Task readCursor(Cursor cursor) {
-		Task task = new Task();
+		Task task = new Task(this);
 		task.setId(cursor.getLong(0));
 		task.setTitle(cursor.getString(1));
 		task.setCreatedOnDate(new Date(cursor.getLong(2)));
