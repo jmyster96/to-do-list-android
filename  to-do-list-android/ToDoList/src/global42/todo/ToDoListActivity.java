@@ -13,21 +13,25 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 public class ToDoListActivity extends Activity {
-	private TextView editText;
-	private Button button;
-	private LinearLayout linearLayout;
+	private EditText titleTextField;
+	private Button addButton;
+	private LinearLayout taskList;
+	private TasksDataSource dataSource;
 
 	/** Called when the activity is first created. */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.main);
+		
+		this.dataSource = new TasksDataSource(getApplicationContext());
+		
+		this.setContentView(R.layout.main);
 
-		button = (Button) findViewById(R.id.addTaskButton);
-		editText = (EditText) findViewById(R.id.newTaskTitle);
-		linearLayout = (LinearLayout) findViewById(R.id.taskList);
+		addButton = (Button) findViewById(R.id.addTaskButton);
+		titleTextField = (EditText) findViewById(R.id.newTaskTitle);
+		taskList = (LinearLayout) findViewById(R.id.taskList);
 
-		button.setOnClickListener(new OnClickListener() {
+		addButton.setOnClickListener(new OnClickListener() {
 
 			public void onClick(View v) {
 				onButtonClick();
@@ -36,27 +40,27 @@ public class ToDoListActivity extends Activity {
 	}
 
 	public void onButtonClick() {
-		if (editText.getText().length() == 0) {
+		if (titleTextField.getText().length() == 0) {
 			Intent intent = new Intent(this, TaskEditActivity.class);
 			// intent.putExtra(STAU_ID, stauId);
 			startActivity(intent);
 		} else {
 			TaskListController.getInstance().addTask(
-					editText.getText().toString());
-			editText.setText("");
+					titleTextField.getText().toString());
+			titleTextField.setText("");
 			updateList();
 		}
 	}
 
 	private void updateList() {
 		Collection<Task> tasks = TaskListController.getInstance().getTasks();
-		linearLayout.removeAllViewsInLayout();
+		taskList.removeAllViewsInLayout();
 		for (Task task : tasks) {
 //			Button taskItem = new Button(getApplicationContext());
 //			taskItem.setText(task.getTitle());
 			View taskItem = new TaskItemView(getApplicationContext(),task);
-			linearLayout.addView(taskItem);
+			taskList.addView(taskItem);
 		}
-		linearLayout.refreshDrawableState();
+		taskList.refreshDrawableState();
 	}
 }
