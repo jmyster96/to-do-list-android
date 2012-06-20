@@ -52,8 +52,9 @@ public class ToDoListActivity extends Activity {
 		Collection<Task> tasks = TaskListController.getInstance().getTasks();
 		linearLayout.removeAllViewsInLayout();
 		for (Task task : tasks) {
-			Button taskItem = new Button(getApplicationContext());
-			taskItem.setText(task.getTitle());
+//			Button taskItem = new Button(getApplicationContext());
+//			taskItem.setText(task.getTitle());
+			View taskItem = new TaskItemView(getApplicationContext(),task);
 			linearLayout.addView(taskItem);
 		}
 		linearLayout.refreshDrawableState();
