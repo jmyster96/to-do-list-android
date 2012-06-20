@@ -19,13 +19,13 @@
 
             <requestFocus />
         </EditText>
-
+
         <Button
             android:id="@+id/addTaskButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/addButtonCaption" />
+            android:text="@string/add_button_caption" />
 
     </LinearLayout>
 

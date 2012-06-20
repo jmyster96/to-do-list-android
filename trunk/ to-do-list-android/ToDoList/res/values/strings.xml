@@ -1,8 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
-    <string name="hello">Penis!!!</string>
     <string name="app_name">ToDoList</string>
-    <string name="addButtonCaption">Add</string>
+    <string name="add_button_caption">Add</string>
+    <string name="task_edit_comment_label">Comment</string>
+    <string name="task_edit_priority_label">Priority</string>
+    <string name="task_edit_title_label">Title</string>
+    <string name="task_edit_priority_low_label">Low</string>
+    <string name="task_edit_priority_high_label">High</string>
+    <string name="task_edit_save_button">Save</string>
 
 </resources>
