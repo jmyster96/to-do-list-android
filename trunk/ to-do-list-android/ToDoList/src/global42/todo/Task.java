@@ -3,13 +3,19 @@
  */
 package global42.todo;
 
+import java.io.Serializable;
 import java.util.Date;
+
+import android.os.Parcel;
+import android.os.Parcelable;
 
 /**
  * @author Dominik
  *
  */
-public class Task {
+public class Task implements Parcelable {
+	//private static final long serialVersionUID = 7940415611619861609L;
+	
 	private long id;
 	private String title;
 	private Date createdOnDate;
@@ -97,5 +103,15 @@ public class Task {
 
 	public void setLastStatusChangeDate(Date lastStatusChangeDate) {
 		this.lastStatusChangeDate = lastStatusChangeDate;
+	}
+
+	public int describeContents() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	public void writeToParcel(Parcel arg0, int arg1) {
+		// TODO Auto-generated method stub
+		
 	}
 }

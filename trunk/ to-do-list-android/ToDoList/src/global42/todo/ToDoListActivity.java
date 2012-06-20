@@ -10,7 +10,6 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 
 public class ToDoListActivity extends Activity {
 	private EditText titleTextField;
@@ -42,7 +41,8 @@ public class ToDoListActivity extends Activity {
 	public void onButtonClick() {
 		if (titleTextField.getText().length() == 0) {
 			Intent intent = new Intent(this, TaskEditActivity.class);
-			// intent.putExtra(STAU_ID, stauId);
+			Task task = new Task(dataSource);
+			//intent.putExtra("taskObject", task);
 			startActivity(intent);
 		} else {
 			TaskListController.getInstance().addTask(
