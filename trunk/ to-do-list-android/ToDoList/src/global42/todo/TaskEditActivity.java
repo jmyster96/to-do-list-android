@@ -35,20 +35,24 @@ public class TaskEditActivity extends Activity {
 
 		Bundle extras = getIntent().getExtras();
 		if (extras != null) {
-			//currentTask = (Task)extras.getSerializable("taskObject");
-			
+			currentTask = (Task)extras.getSerializable("taskObject");
+			editTitle.setText(currentTask.getTitle());
+			ratingBarPriority.setRating(currentTask.getPriority().getPriority());
+			editComment.setText(currentTask.getComment());
 			//String test = extras.getString("taskObject");
 		}
 	}
 
 	private void onButtonSaveClick() {
-//		currentTask.setTitle(editTitle.toString());
-//		currentTask.setComment(editComment.toString());
-//		currentTask.setPriority(TaskPriority.getTaskPriorityFor((int) ratingBarPriority.getRating()));
+		currentTask.setTitle(editTitle.toString());
+		currentTask.setComment(editComment.toString());
+		currentTask.setPriority(TaskPriority.getTaskPriorityFor((int) ratingBarPriority.getRating()));
 		
-		//currentTask.save();
+		TasksDataSource tasksDataSource = new TasksDataSource(this);
+		tasksDataSource.save(currentTask);
 		
-		Intent intent = new Intent(this, ToDoListActivity.class);
-		startActivity(intent);
+		Intent intent = new Intent();
+		setResult(RESULT_OK, intent);
+		finish();
 	}
 }
