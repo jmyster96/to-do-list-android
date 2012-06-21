@@ -42,8 +42,11 @@ public class ToDoListActivity extends Activity {
 		if (titleTextField.getText().length() == 0) {
 			Intent intent = new Intent(this, TaskEditActivity.class);
 			Task task = new Task(dataSource);
-			//intent.putExtra("taskObject", task);
-			startActivity(intent);
+			//task.setTitle("Penis");
+			//task.setPriority(TaskPriority.Low);
+			//task.setComment("Hallo");
+			intent.putExtra("taskObject", task);
+			startActivityForResult(intent, 1);
 		} else {
 			TaskListController.getInstance().addTask(
 					titleTextField.getText().toString());

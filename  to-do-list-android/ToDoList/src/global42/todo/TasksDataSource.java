@@ -1,5 +1,6 @@
 package global42.todo;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -10,8 +11,8 @@ import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 
-public class TasksDataSource {
-
+public class TasksDataSource implements Serializable {
+	private static final long serialVersionUID = 1L;
 	// Database fields
 	private SQLiteDatabase database;
 	private SQLiteDatabaseBuilder dbBuilder;
@@ -92,5 +93,9 @@ public class TasksDataSource {
 		task.setPriority(TaskPriority.getTaskPriorityFor(cursor.getInt(5)));
 		task.setComment(cursor.getString(6));
 		return task;
+	}
+
+	public void save(Task task) {
+		insert(task);
 	}
 }

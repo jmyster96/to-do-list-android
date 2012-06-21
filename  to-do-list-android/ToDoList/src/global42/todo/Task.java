@@ -6,24 +6,22 @@ package global42.todo;
 import java.io.Serializable;
 import java.util.Date;
 
-import android.os.Parcel;
-import android.os.Parcelable;
 
 /**
  * @author Dominik
  *
  */
-public class Task implements Parcelable {
-	//private static final long serialVersionUID = 7940415611619861609L;
+public class Task implements Serializable {
+	private static final long serialVersionUID = 7940415611619861609L;
 	
 	private long id;
-	private String title;
+	private String title = "";
 	private Date createdOnDate;
 	private Date lastStatusChangeDate;
-	private TaskStatus status;
-	private TaskPriority priority;
-	private String comment;
-	private TasksDataSource dataSource;
+	private TaskStatus status = TaskStatus.Active;
+	private TaskPriority priority = TaskPriority.Normal;
+	private String comment = "";
+	//private TasksDataSource dataSource;
 
 	/**
 	 * @param title
@@ -33,7 +31,7 @@ public class Task implements Parcelable {
 	 */
 	public Task(TasksDataSource dataSource, String title, TaskStatus status, TaskPriority priority, String comment) {
 		super();
-		this.dataSource = dataSource;
+		//this.dataSource = dataSource;
 		this.title = title;
 		this.status = status;
 		this.priority = priority;
@@ -42,12 +40,9 @@ public class Task implements Parcelable {
 	}
 	
 	public Task(TasksDataSource dataSource) {
-		this(dataSource,null,null,null,null);
+		this(dataSource,"",TaskStatus.Active,TaskPriority.Normal,"");
 	}
 	
-	public void save(){
-		this.dataSource.insert(this);
-	}
 	public String getTitle() {
 		return title;
 	}
@@ -103,15 +98,5 @@ public class Task implements Parcelable {
 
 	public void setLastStatusChangeDate(Date lastStatusChangeDate) {
 		this.lastStatusChangeDate = lastStatusChangeDate;
-	}
-
-	public int describeContents() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	public void writeToParcel(Parcel arg0, int arg1) {
-		// TODO Auto-generated method stub
-		
 	}
 }
