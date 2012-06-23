@@ -67,15 +67,18 @@
         android:layout_height="wrap_content"
         android:text="@string/task_edit_comment_label"
         android:textAppearance="?android:attr/textAppearanceLarge" />
-
+
     <EditText
         android:id="@+id/editTaskEditComment"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
+        android:layout_gravity="top"
         android:layout_marginBottom="5dp"
         android:ems="10"
-        android:inputType="textMultiLine"
-        android:minLines="6" android:layout_gravity="top"/>
+        android:gravity="top"
+        android:inputType="textCapSentences|textImeMultiLine|textMultiLine"
+        android:minLines="6"
+        android:singleLine="false" />
 
     <Button
         android:id="@+id/buttonEditTaskSave"

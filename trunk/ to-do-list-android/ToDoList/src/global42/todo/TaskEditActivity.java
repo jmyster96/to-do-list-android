@@ -25,7 +25,7 @@ public class TaskEditActivity extends Activity {
 		editTitle = (EditText) findViewById(R.id.editTaskEditTitle);
 		ratingBarPriority = (RatingBar) findViewById(R.id.ratingBarEditTaskPriority);
 		editComment = (EditText) findViewById(R.id.editTaskEditComment);
-		
+		 
 		buttonSave = (Button) findViewById(R.id.buttonEditTaskSave);
 		buttonSave.setOnClickListener(new OnClickListener() {
 			public void onClick(View v) {
@@ -49,7 +49,7 @@ public class TaskEditActivity extends Activity {
 		currentTask.setPriority(TaskPriority.getTaskPriorityFor((int) ratingBarPriority.getRating()));
 		
 		TasksDataSource tasksDataSource = new TasksDataSource(this);
-		tasksDataSource.save(currentTask);
+//		tasksDataSource.save(currentTask);
 		
 		Intent intent = new Intent();
 		setResult(RESULT_OK, intent);
