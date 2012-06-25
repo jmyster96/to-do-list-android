@@ -1,5 +1,7 @@
 package global42.todo;
 
+import global42.todo.persistence.TasksDataSource;
+
 import java.util.Collection;
 
 import android.app.Activity;
@@ -37,26 +39,35 @@ public class ToDoListActivity extends Activity {
 			}
 		});
 	}
+	
+	@Override
+	protected void onResume() {
+		// TODO Auto-generated method stub
+		super.onResume();
+		this.updateList();
+	}
 
 	public void onButtonClick() {
 		if (titleTextField.getText().length() == 0) {
 			Intent intent = new Intent(this, TaskEditActivity.class);
-			Task task = new Task(dataSource);
+			Task task = new Task();
 			//task.setTitle("Penis");
 			//task.setPriority(TaskPriority.Low);
 			//task.setComment("Hallo");
 			intent.putExtra("taskObject", task);
 			startActivityForResult(intent, 1);
 		} else {
-			TaskListController.getInstance().addTask(
-					titleTextField.getText().toString());
+			Task newTask = new Task(titleTextField.getText().toString());
+			dataSource.insert(newTask);
+//			TaskListController.getInstance().addTask(
+//					titleTextField.getText().toString());
 			titleTextField.setText("");
 			updateList();
 		}
 	}
 
 	private void updateList() {
-		Collection<Task> tasks = TaskListController.getInstance().getTasks();
+		Collection<Task> tasks = dataSource.getAllTasks();//TaskListController.getInstance().getTasks();
 		taskList.removeAllViewsInLayout();
 		for (Task task : tasks) {
 //			Button taskItem = new Button(getApplicationContext());
