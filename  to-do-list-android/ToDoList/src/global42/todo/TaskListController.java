@@ -3,6 +3,8 @@
  */
 package global42.todo;
 
+import global42.todo.persistence.TasksDataSource;
+
 import java.util.EventListener;
 import java.util.HashSet;
 import java.util.Set;

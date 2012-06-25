@@ -1,5 +1,6 @@
 package global42.todo;
 
+import global42.todo.persistence.TasksDataSource;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -44,12 +45,12 @@ public class TaskEditActivity extends Activity {
 	}
 
 	private void onButtonSaveClick() {
-		currentTask.setTitle(editTitle.toString());
-		currentTask.setComment(editComment.toString());
+		currentTask.setTitle(editTitle.getText().toString());
+		currentTask.setComment(editComment.getText().toString());
 		currentTask.setPriority(TaskPriority.getTaskPriorityFor((int) ratingBarPriority.getRating()));
-		
+
 		TasksDataSource tasksDataSource = new TasksDataSource(this);
-//		tasksDataSource.save(currentTask);
+		tasksDataSource.save(currentTask);
 		
 		Intent intent = new Intent();
 		setResult(RESULT_OK, intent);
