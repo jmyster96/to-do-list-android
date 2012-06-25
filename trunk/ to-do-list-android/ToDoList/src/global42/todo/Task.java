@@ -21,6 +21,8 @@ public class Task implements Serializable {
 	private TaskStatus status = TaskStatus.Active;
 	private TaskPriority priority = TaskPriority.Normal;
 	private String comment = "";
+	
+	
 	//private TasksDataSource dataSource;
 
 	/**
