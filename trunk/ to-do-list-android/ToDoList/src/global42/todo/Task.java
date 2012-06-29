@@ -47,7 +47,7 @@ public class Task implements Serializable {
 	}
 	public Task(String title, TaskStatus status, TaskPriority priority, String comment) {
 		super();
-		
+		this.setId(-1);
 		this.setTitle(title);
 		this.setStatus(status);
 		this.setPriority(priority);

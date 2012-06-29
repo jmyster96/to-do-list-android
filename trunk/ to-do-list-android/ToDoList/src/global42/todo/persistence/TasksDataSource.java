@@ -49,10 +49,16 @@ public class TasksDataSource implements Serializable {
 		values.put(TaskTable.COLUMN_CREATED_ON_DATE, task.getCreatedOnDate().getTime());
 		values.put(TaskTable.COLUMN_LAST_STATUS_CHANGE_DATE, task.getLastStatusChangeDate().getTime());
 		values.put(TaskTable.COLUMN_STATUS, task.getStatus().toString());
-		values.put(TaskTable.COLUMN_PRIORITY, task.getPriority().toString());
+		values.put(TaskTable.COLUMN_PRIORITY, task.getPriority().getPriority());
 		values.put(TaskTable.COLUMN_COMMENT, task.getComment());
 		
-		long insertId = database.insert(TaskTable.TABLE_NAME, null, values);
+		long insertId = task.getId();
+		if (insertId< 0) {
+			insertId = database.insert(TaskTable.TABLE_NAME, null, values);
+			
+		} else {
+			database.update(TaskTable.TABLE_NAME, values, TaskTable.COLUMN_ID + " = "+ task.getId(), null);
+		}
 		Cursor cursor = database.query(TaskTable.TABLE_NAME,
 				allColumns, TaskTable.COLUMN_ID + " = " + insertId, null,
 				null, null, null);
@@ -71,8 +77,21 @@ public class TasksDataSource implements Serializable {
 		return readCursorList(database.query(TaskTable.TABLE_NAME, allColumns, null, null, null, null, null));
 	}
 	
-	public List<Task> getTasksSorted() {
-		return readCursorList(database.query(TaskTable.TABLE_NAME, allColumns, null, null, null, null, TaskTable.COLUMN_CREATED_ON_DATE + " DESC"));
+	public List<Task> getTasksSorted(ListSorting sorting) {
+		Cursor returnedCursor;
+		switch (sorting) {
+			case Priority:
+				returnedCursor = database.query(TaskTable.TABLE_NAME, allColumns, null, null, null, null, TaskTable.COLUMN_PRIORITY + " DESC");				
+				break;
+//			case DueDate:
+//				database.query(TaskTable.TABLE_NAME, allColumns, null, null, null, null, TaskTable.COLUMN_DUEDATE + " ASC");
+//				break;
+			case DateOfCreation:
+			default:
+				returnedCursor = database.query(TaskTable.TABLE_NAME, allColumns, null, null, null, null, TaskTable.COLUMN_CREATED_ON_DATE + " DESC");
+				break;
+		}
+		return readCursorList(returnedCursor);
 	}
 
 	private List<Task> readCursorList(Cursor cursor) {
