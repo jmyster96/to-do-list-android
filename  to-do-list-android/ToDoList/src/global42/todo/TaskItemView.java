@@ -3,17 +3,13 @@
  */
 package global42.todo;
 
-import java.util.ArrayList;
-
 import android.content.Context;
 import android.graphics.Color;
 import android.view.Gravity;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.LinearLayout.LayoutParams;
 import android.widget.TextView;
 
 /**
@@ -25,10 +21,12 @@ public class TaskItemView extends LinearLayout {
 	private ImageView priority;
 	private TextView title;
 	private ImageButton checkButton;
+	private ToDoListActivity callingActivity;
 	
-	public TaskItemView(Context context, Task task) {
+	public TaskItemView(Context context, Task task, ToDoListActivity activity) {
 		super(context);
 		this.task = task;
+		this.callingActivity = activity;
 		
 		this.setLayoutParams(new LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT));
 		this.setBackgroundColor(Color.WHITE);
@@ -45,7 +43,17 @@ public class TaskItemView extends LinearLayout {
 		this.addView(priority);
 		this.addView(title);
 		this.addView(checkButton);
+		
+		this.setClickable(true);
+		this.setOnClickListener(new OnClickListener() {
+			
+			public void onClick(View v) {
+				callingActivity.onItemClick(getTask());
+			}
+		});
 	}
 
-	
+	public Task getTask(){
+		return this.task;
+	}
 }
