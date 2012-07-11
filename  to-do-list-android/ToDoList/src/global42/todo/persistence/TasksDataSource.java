@@ -78,6 +78,10 @@ public class TasksDataSource implements Serializable {
 	}
 	
 	public List<Task> getTasksSorted(ListSorting sorting) {
+		return getTasksSorted(sorting, true)
+	}
+	
+	public List<Task> getTasksSorted(ListSorting sorting, boolean showDoneItems) {
 		Cursor returnedCursor;
 		switch (sorting) {
 			case Priority:
