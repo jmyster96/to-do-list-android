@@ -82,18 +82,21 @@ public class TasksDataSource implements Serializable {
 	}
 	
 	public List<Task> getTasksSorted(ListSorting sorting, boolean showDoneItems) {
+		String whereClause = null;
+		if(!showDoneItems)
+			whereClause = new String("'" + TaskTable.COLUMN_STATUS + "' = 1");
+		
 		Cursor returnedCursor;
-
 		switch (sorting) {
 			case Priority:
-				returnedCursor = database.query(TaskTable.TABLE_NAME, allColumns, null, null, null, null, TaskTable.COLUMN_PRIORITY + " DESC");				
+				returnedCursor = database.query(TaskTable.TABLE_NAME, allColumns, whereClause, null, null, null, TaskTable.COLUMN_PRIORITY + " DESC");				
 				break;
 //			case DueDate:
-//				database.query(TaskTable.TABLE_NAME, allColumns, null, null, null, null, TaskTable.COLUMN_DUEDATE + " ASC");
+//				database.query(TaskTable.TABLE_NAME, allColumns, whereClause, null, null, null, TaskTable.COLUMN_DUEDATE + " ASC");
 //				break;
 			case DateOfCreation:
 			default:
-				returnedCursor = database.query(TaskTable.TABLE_NAME, allColumns, null, null, null, null, TaskTable.COLUMN_CREATED_ON_DATE + " DESC");
+				returnedCursor = database.query(TaskTable.TABLE_NAME, allColumns, whereClause, null, null, null, TaskTable.COLUMN_CREATED_ON_DATE + " DESC");
 				break;
 		}
 		return readCursorList(returnedCursor);
