@@ -48,7 +48,7 @@ public class TasksDataSource implements Serializable {
 		values.put(TaskTable.COLUMN_TITLE, task.getTitle());
 		values.put(TaskTable.COLUMN_CREATED_ON_DATE, task.getCreatedOnDate().getTime());
 		values.put(TaskTable.COLUMN_LAST_STATUS_CHANGE_DATE, task.getLastStatusChangeDate().getTime());
-		values.put(TaskTable.COLUMN_STATUS, task.getStatus().toString());
+		values.put(TaskTable.COLUMN_STATUS, task.getStatus().getStatusId());
 		values.put(TaskTable.COLUMN_PRIORITY, task.getPriority().getPriority());
 		values.put(TaskTable.COLUMN_COMMENT, task.getComment());
 		

@@ -90,8 +90,8 @@ public class ToDoListActivity extends Activity {
 		
 		taskList.removeAllViewsInLayout();
 		for (Task task : tasks) {
-			TaskItemView taskItem = new TaskItemView(getApplicationContext(),
-					task, this);
+			TaskItemView taskItem = new TaskItemView(
+					getApplicationContext(), task, this);
 			taskList.addView(taskItem);
 		}
 		taskList.refreshDrawableState();
@@ -112,5 +112,11 @@ public class ToDoListActivity extends Activity {
 
 		}
 		return true;
+	}
+
+	public void onSetDoneClick(Task task) {
+		task.setStatus(TaskStatus.Done);
+		dataSource.insert(task);
+		updateList();
 	}
 }

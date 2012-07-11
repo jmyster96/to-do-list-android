@@ -19,7 +19,7 @@ public enum TaskStatus {
 		this.status = status;
 	}
 	
-	public int getStatus() {
+	public int getStatusId() {
 		return this.status;
 	}
 	
@@ -27,9 +27,10 @@ public enum TaskStatus {
 		TaskStatus taskStatus = Undefined;
 		
 		for (TaskStatus currentTaskStatus : TaskStatus.values()) {
-			if(currentTaskStatus.getStatus() == status)
+			if(currentTaskStatus.getStatusId() == status)
 				taskStatus = currentTaskStatus;
 		}
 		return taskStatus;
 	}
+
 }

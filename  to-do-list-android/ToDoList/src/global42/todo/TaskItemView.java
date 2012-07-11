@@ -35,10 +35,17 @@ public class TaskItemView extends LinearLayout {
 		
 		this.title = new TextView(context);
 		this.title.setGravity(Gravity.CENTER);
-		this.title.setText(this.task.getTitle());
+		this.title.setText(this.task.getTitle() + "_" + this.task.getStatus());
 		
 		this.checkButton = new ImageButton(context);
 		this.checkButton.setImageResource(R.drawable.ic_done);
+		this.checkButton.setClickable(true);
+		this.checkButton.setOnClickListener(new OnClickListener() {
+			
+			public void onClick(View v) {
+				callingActivity.onSetDoneClick(getTask());
+			}
+		});
 		
 		this.addView(priority);
 		this.addView(title);
