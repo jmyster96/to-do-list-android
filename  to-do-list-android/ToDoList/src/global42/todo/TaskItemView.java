@@ -35,7 +35,7 @@ public class TaskItemView extends LinearLayout {
 		
 		this.title = new TextView(context);
 		this.title.setGravity(Gravity.CENTER);
-		this.title.setText(this.task.getTitle() + "_" + this.task.getStatus());
+		this.title.setText(this.task.getTitle());
 		
 		this.checkButton = new ImageButton(context);
 		this.checkButton.setImageResource(R.drawable.ic_done);
