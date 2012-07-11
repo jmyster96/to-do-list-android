@@ -80,9 +80,11 @@ public class ToDoListActivity extends Activity {
 		int sortBy = myPrefs.getInt(
 				SettingsActivity.selected_radio_button_setting,
 				R.id.radio_CreationDate);
+		
+		boolean showDone = myPrefs.getBoolean(SettingsActivity.show_done_items_setting, true);
 
 		Collection<Task> tasks =  dataSource
-					.getTasksSorted(ListSorting.getListSortingFor(sortBy));
+					.getTasksSorted(ListSorting.getListSortingFor(sortBy),showDone);
 		
 
 		
