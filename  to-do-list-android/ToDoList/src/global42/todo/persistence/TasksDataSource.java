@@ -84,7 +84,7 @@ public class TasksDataSource implements Serializable {
 	public List<Task> getTasksSorted(ListSorting sorting, boolean showDoneItems) {
 		String whereClause = null;
 		if(!showDoneItems)
-			whereClause = new String("'" + TaskTable.COLUMN_STATUS + "' = 1");
+			whereClause = new String("" + TaskTable.COLUMN_STATUS + " = '1'");
 		
 		Cursor returnedCursor;
 		switch (sorting) {
