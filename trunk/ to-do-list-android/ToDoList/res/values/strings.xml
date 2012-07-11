@@ -8,5 +8,10 @@
     <string name="task_edit_priority_low_label">Low</string>
     <string name="task_edit_priority_high_label">High</string>
     <string name="task_edit_save_button">Save</string>
+    <string name="sortBy">Sort by:</string>
+    <string name="sortBy_Priority">Priority</string>
+    <string name="sortBy_DueDate">Due Date</string>
+    <string name="sortBy_CreationDate">Creation Date</string>
+    <string name="showDoneItems">Show done items</string>
 
 </resources>
