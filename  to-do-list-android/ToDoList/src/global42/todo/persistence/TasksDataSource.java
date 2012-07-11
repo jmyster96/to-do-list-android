@@ -78,11 +78,12 @@ public class TasksDataSource implements Serializable {
 	}
 	
 	public List<Task> getTasksSorted(ListSorting sorting) {
-		return getTasksSorted(sorting, true)
+		return getTasksSorted(sorting, true);
 	}
 	
 	public List<Task> getTasksSorted(ListSorting sorting, boolean showDoneItems) {
 		Cursor returnedCursor;
+
 		switch (sorting) {
 			case Priority:
 				returnedCursor = database.query(TaskTable.TABLE_NAME, allColumns, null, null, null, null, TaskTable.COLUMN_PRIORITY + " DESC");				
