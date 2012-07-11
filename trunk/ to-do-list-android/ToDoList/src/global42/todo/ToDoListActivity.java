@@ -81,14 +81,9 @@ public class ToDoListActivity extends Activity {
 				SettingsActivity.selected_radio_button_setting,
 				R.id.radio_CreationDate);
 
-		Collection<Task> tasks;
-		if (sortBy == R.id.radio_CreationDate) {
-			tasks =  dataSource
-					.getTasksSorted(ListSorting.DateOfCreation);
-		} else {
-			tasks =  dataSource
-					.getTasksSorted(ListSorting.Priority);
-		}
+		Collection<Task> tasks =  dataSource
+					.getTasksSorted(ListSorting.getListSortingFor(sortBy));
+		
 
 		
 		taskList.removeAllViewsInLayout();

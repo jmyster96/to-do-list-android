@@ -1,5 +1,6 @@
 package global42.todo;
 
+import global42.todo.persistence.ListSorting;
 import android.app.Activity;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -39,11 +40,10 @@ public class SettingsActivity extends Activity {
 		});
 		
 		sort_by_group = (RadioGroup) findViewById(R.id.SortByGroup);
-		int checked_radio_button_id = myPrefs.getInt(selected_radio_button_setting, R.id.radio_CreationDate);
-		RadioButton checkedButton = (RadioButton) findViewById(checked_radio_button_id);
-		checkedButton.setChecked(true);	
-
+		
 		radio_priority = (RadioButton) findViewById(R.id.radio_Priority);
+		radio_creation = (RadioButton) findViewById(R.id.radio_CreationDate);
+		
 		radio_priority.setOnClickListener(new OnClickListener() {
 
 			public void onClick(View v) {
@@ -51,13 +51,25 @@ public class SettingsActivity extends Activity {
 			}
 		});
 		
-		radio_creation = (RadioButton) findViewById(R.id.radio_CreationDate);
+		
 		radio_creation.setOnClickListener(new OnClickListener() {
 
 			public void onClick(View v) {
 				onGroupClick();
 			}
 		});
+		
+		int sortBy = myPrefs.getInt(selected_radio_button_setting, ListSorting.DateOfCreation.getId());
+		
+		switch (ListSorting.getListSortingFor(sortBy)) {
+		case Priority:
+			radio_priority.setChecked(true);
+			break;
+		case DateOfCreation:
+		default:
+			radio_creation.setChecked(true);
+			break;
+		}
 
 	}
 
@@ -78,8 +90,14 @@ public class SettingsActivity extends Activity {
 		SharedPreferences myPrefs = this.getSharedPreferences("myPrefs",
 				MODE_WORLD_READABLE);
 		SharedPreferences.Editor prefsEditor = myPrefs.edit();
-		prefsEditor.putInt(selected_radio_button_setting, checkedButtonId);
-
+		
+		if(checkedButtonId == R.id.radio_CreationDate){
+			prefsEditor.putInt(selected_radio_button_setting, ListSorting.DateOfCreation.getId());
+		}else{
+			prefsEditor.putInt(selected_radio_button_setting, ListSorting.Priority.getId());
+		}
+		
+		
 		prefsEditor.commit();
 
 	}
