@@ -11,7 +11,7 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
 public class SettingsActivity extends Activity {
-
+	public static final int SettingsReader = MODE_WORLD_READABLE;
 	public static final String show_done_items_setting = "SHOW_DONE_ITEMS";
 	public static final String selected_radio_button_setting = "SELECTED_RADIO_BUTTON";
 	private CheckBox show_done_items;
