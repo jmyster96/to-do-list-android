@@ -27,11 +27,9 @@ public class TaskItemView extends LinearLayout {
 		this.priority.setMinimumWidth(84);
 		this.priority.setMaxHeight(84);
 		this.priority.setMaxWidth(84);
-		//Priority-Abfrage für die Auswahl des Prio-Symbols
 		TaskPriority tp;
 		tp = task.getPriority();
 
-		//Abfrage ob Low/High, oder niedrig priorisiert
 		if (tp.priority == 1) {
 			this.priority.setImageResource(R.drawable.ic_low);
 		}
@@ -43,29 +41,31 @@ public class TaskItemView extends LinearLayout {
 		else if (tp.priority == 3) {
 			this.priority.setImageResource(R.drawable.ic_high);
 		}
-		//Setzen des Titels in die EditText
+
 		this.title = new TextView(context);
 		this.title.setMinimumWidth(310);
 		this.title.setGravity(Gravity.CENTER);
 		this.title.setText(this.task.getTitle());
 
-		//CheckButton für "erledigt"
 		this.checkButton = new ImageButton(context);
-		this.checkButton.setImageResource(R.drawable.black);
+
+		if (this.task.getStatus() == TaskStatus.Done) {
+			checkButton.setImageResource(R.drawable.done);
+		} else {
+			this.checkButton.setImageResource(R.drawable.black);
+		}
 		this.checkButton.setMinimumHeight(84);
 		this.checkButton.setMinimumWidth(84);
 		this.checkButton.setMaxHeight(84);
 		this.checkButton.setMaxWidth(84);
 		this.checkButton.setClickable(true);
-		//Listener für das setzen des erledigt-Hakens
-		this.checkButton.setOnClickListener(
-			new OnClickListener()
-				{
-					public void onClick(View arg0) 
-						{checkButton.setImageResource(R.drawable.done);}
-				}
-		);
-//Das hinzufügen der Views
+
+		this.checkButton.setOnClickListener(new OnClickListener() {
+			public void onClick(View arg0) {
+				callingActivity.onSetDoneClick(getTask());
+			}
+		});
+
 		this.addView(priority);
 		this.addView(title);
 		this.addView(checkButton);
