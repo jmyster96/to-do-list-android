@@ -54,18 +54,14 @@ public class TaskItemView extends LinearLayout {
 		this.checkButton.setMaxHeight(84);
 		this.checkButton.setMaxWidth(84);
 		this.checkButton.setClickable(true);
-		this.checkButton.setOnClickListener(new OnClickListener() {
-			public void onClick(View arg0) 
-			{
-				for(int i=0;i<10000;i++)
+		this.checkButton.setOnClickListener(
+			new OnClickListener()
 				{
-					if(i%2==0)
-					{checkButton.setImageResource(R.drawable.done);					}
-					if(i%2!=0)
-					{checkButton.setImageResource(R.drawable.black);}
-				}}}
-			
-);
+					public void onClick(View arg0) 
+						{checkButton.setImageResource(R.drawable.done);}
+					
+				}
+		);
 
 		this.addView(priority);
 		this.addView(title);
