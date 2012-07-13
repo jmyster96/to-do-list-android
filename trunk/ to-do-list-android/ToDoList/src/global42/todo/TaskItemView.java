@@ -33,15 +33,15 @@ public class TaskItemView extends LinearLayout {
 		tp = task.getPriority();
 
 		if (tp.priority == 1) {
-			this.priority.setImageResource(R.drawable.ic_low_transparent);
+			this.priority.setImageResource(R.drawable.ic_low_transparent_small);
 		}
 
 		else if (tp.priority == 2) {
-			this.priority.setImageResource(R.drawable.ic_normal_transparent);
+			this.priority.setImageResource(R.drawable.ic_normal_transparent_small);
 		}
 
 		else if (tp.priority == 3) {
-			this.priority.setImageResource(R.drawable.ic_high_transparent);
+			this.priority.setImageResource(R.drawable.ic_high_transparent_small);
 		}
 
 		this.title = new TextView(context);

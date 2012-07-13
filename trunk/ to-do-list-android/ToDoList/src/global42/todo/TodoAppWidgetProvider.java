@@ -5,7 +5,6 @@ import global42.todo.persistence.TasksDataSource;
 
 import java.util.Iterator;
 import java.util.List;
-import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -15,8 +14,6 @@ import android.appwidget.AppWidgetProvider;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.util.Log;
 import android.widget.RemoteViews;
 
 public class TodoAppWidgetProvider extends AppWidgetProvider {
@@ -29,7 +26,6 @@ public class TodoAppWidgetProvider extends AppWidgetProvider {
 	Context context;
 	AppWidgetManager appWidgetManager;
 	int[] appWidgetIds;
-	Task element;
 	
 	public TodoAppWidgetProvider() {
 		Timer timer = new Timer("Widget_Refresh_Thread");
@@ -62,13 +58,17 @@ public class TodoAppWidgetProvider extends AppWidgetProvider {
 		this.appWidgetManager = appWidgetManager;
 		this.appWidgetIds = appWidgetIds;
 		this.context = context;
-		TasksDataSource tasksDataSource = new TasksDataSource(context);
-		List<Task> tasks = tasksDataSource.getTasksSorted(ListSorting.DateOfCreation, true); //TODO: false
-		taskIterator = tasks.iterator();
+		getTasks();
 		
 		showNextTask();
 		
 
+	}
+
+	private void getTasks() {
+		TasksDataSource tasksDataSource = new TasksDataSource(this.context);
+		List<Task> tasks = tasksDataSource.getTasksSorted(ListSorting.DateOfCreation, false);
+		taskIterator = tasks.iterator();
 	}
 
 	public void showNextTask() {		
@@ -85,22 +85,21 @@ public class TodoAppWidgetProvider extends AppWidgetProvider {
 			// Create some random data
 			
 			if(!taskIterator.hasNext()){
-				taskIterator = tasks.iterator();
-				System.out.println("itereator wird hneu angelegt!");
-				
+				getTasks();
+//				taskIterator = tasks.iterator();
+//				System.out.println("itereator wird hneu angelegt!");
 			}
 			System.out.println("itereator wird nicht neu angelegt!");
-			element = taskIterator.next();
+			Task newTask = taskIterator.next();
 		
 			
 					
 			
 			
-			RemoteViews remoteViews = new RemoteViews(context.getPackageName(),
-					R.layout.widget_layout);
+			RemoteViews remoteViews = new RemoteViews(context.getPackageName(),	R.layout.widget_layout);
 			System.out.println("nach RemoteView");
 			// Set the text
-			remoteViews.setTextViewText(R.id.update, element.getTitle());
+			remoteViews.setTextViewText(R.id.update, newTask.getTitle());
 
 			// Register an onClickListener
 			Intent intent = new Intent(context, ToDoListActivity.class);
