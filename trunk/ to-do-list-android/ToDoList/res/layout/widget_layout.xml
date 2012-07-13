@@ -4,7 +4,7 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:layout_margin="8dip"
-    android:background="@drawable/widget_background"
+    android:background="@drawable/widget_background_transparent"
     android:orientation="horizontal" >
 
     <TextView
@@ -15,7 +15,7 @@
         android:layout_gravity="center"
         android:layout_margin="4dip"
         android:gravity="center_horizontal|center_vertical"
-        android:text="Static Text" >
+        android:text="Keine Einträge vorhanden" >
 
     </TextView>
 
