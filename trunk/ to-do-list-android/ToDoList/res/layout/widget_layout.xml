@@ -13,8 +13,8 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_margin="4dip"
         android:gravity="center_horizontal|center_vertical"
+        android:layout_margin="4dip"
         android:text="Keine Einträge vorhanden" >
 
     </TextView>
