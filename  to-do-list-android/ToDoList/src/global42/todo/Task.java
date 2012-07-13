@@ -1,25 +1,15 @@
-/**
- * 
- */
 package global42.todo;
-
-import global42.todo.persistence.TasksDataSource;
 
 import java.io.Serializable;
 import java.util.Date;
 
-
-/**
- * @author Dominik
- *
- */
 /**
  * @author Gizzi
- *
+ * model to represent a particular task in the list
  */
 public class Task implements Serializable {
 	private static final long serialVersionUID = 7940415611619861609L;
-	
+
 	private long id;
 	private String title = "";
 	private Date createdOnDate;
@@ -27,24 +17,7 @@ public class Task implements Serializable {
 	private TaskStatus status = TaskStatus.Active;
 	private TaskPriority priority = TaskPriority.Normal;
 	private String comment = "";
-	//private TasksDataSource dataSource;
 
-	/**
-	 * @param title
-	 * @param status
-	 * @param priority
-	 * @param comment
-	 * @deprecated
-	 */
-	public Task(TasksDataSource dataSource, String title, TaskStatus status, TaskPriority priority, String comment) {
-		super();
-//		this.dataSource = dataSource;
-		this.title = title;
-		this.status = status;
-		this.priority = priority;
-		this.comment = comment;
-		this.createdOnDate = new Date();
-	}
 	public Task(String title, TaskStatus status, TaskPriority priority, String comment) {
 		super();
 		this.setId(-1);
@@ -54,20 +27,15 @@ public class Task implements Serializable {
 		this.setComment(comment);
 		this.setCreatedOnDate(new Date());
 	}
-	
-	/**
-	 * @param dataSource
-	 * @deprecated
-	 */
-	public Task(TasksDataSource dataSource) {
-		this(dataSource,"",TaskStatus.Active,TaskPriority.Normal,"");
-	}
+
 	public Task(String title) {
-		this(title,TaskStatus.Active,TaskPriority.Normal,new String());
+		this(title, TaskStatus.Active, TaskPriority.Normal, new String());
 	}
+
 	public Task() {
 		this(new String());
 	}
+
 	public String getTitle() {
 		return title;
 	}

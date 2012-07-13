@@ -16,22 +16,29 @@ import android.content.Context;
 import android.content.Intent;
 import android.widget.RemoteViews;
 
+/**
+ * @author Dominik
+ * provides the widget
+ */
 public class TodoAppWidgetProvider extends AppWidgetProvider {
-
-	private static final String ACTION_CLICK = "ACTION_CLICK";
-	TasksDataSource tasksDataSource;
-	List<Task> tasks;
-	Iterator<Task> taskIterator;
-	WidgetTimer timer;
-	Context context;
-	AppWidgetManager appWidgetManager;
+	private static final int SHOW_NEXT_TASK_TIMER = 5000;
+	private Iterator<Task> taskIterator;
+	private Context context;
+	private AppWidgetManager appWidgetManager;
 	int[] appWidgetIds;
-	
+
+	/**
+	 * constructor used to init the showNextTaskTimer
+	 */
 	public TodoAppWidgetProvider() {
 		Timer timer = new Timer("Widget_Refresh_Thread");
-		timer.scheduleAtFixedRate(new WidgetTimer(this), 5 * 1000, 5 * 1000);
+		timer.scheduleAtFixedRate(new WidgetTimer(this), SHOW_NEXT_TASK_TIMER, SHOW_NEXT_TASK_TIMER);
 	}
 
+	/**
+	 * @author Dominik
+	 * internal timer class to refresh the currently shown task in a particular interval 
+	 */
 	private class WidgetTimer extends TimerTask {
 		TodoAppWidgetProvider provider;
 
@@ -41,78 +48,59 @@ public class TodoAppWidgetProvider extends AppWidgetProvider {
 
 		@Override
 		public void run() {
-			System.out.println("run");
 			this.provider.showNextTask();
-			
+
 		}
 
 	}
-
 
 	@Override
 	public void onUpdate(Context context, AppWidgetManager appWidgetManager,
 			int[] appWidgetIds) {
 
-		System.out.println("onUpdate");
-		// Get all ids
 		this.appWidgetManager = appWidgetManager;
 		this.appWidgetIds = appWidgetIds;
 		this.context = context;
 		getTasks();
-		
+
 		showNextTask();
-		
 
 	}
 
 	private void getTasks() {
 		TasksDataSource tasksDataSource = new TasksDataSource(this.context);
-		List<Task> tasks = tasksDataSource.getTasksSorted(ListSorting.DateOfCreation, false);
+		List<Task> tasks = tasksDataSource.getTasksSorted(
+				ListSorting.DateOfCreation, false);
 		taskIterator = tasks.iterator();
 	}
 
-	public void showNextTask() {		
-		System.out.println("showNextTask");
-		// Get all ids
-		ComponentName thisWidget = new ComponentName(context,
-				TodoAppWidgetProvider.class);
-		System.out.println("1 Zeile");
+	/**
+	 * show the next {@link Task} of the task list
+	 * if the last item is reached, the list will be reloaded
+	 */
+	public void showNextTask() {
+		ComponentName thisWidget = new ComponentName(context, TodoAppWidgetProvider.class);
 		int[] allWidgetIds = appWidgetManager.getAppWidgetIds(thisWidget);
-		System.out.println("2 Zeile");
 		for (int widgetId : allWidgetIds) {
-			System.out.println("in der For Schleife");
-
-			// Create some random data
-			
-			if(!taskIterator.hasNext()){
+			if (!taskIterator.hasNext()) {
 				getTasks();
-//				taskIterator = tasks.iterator();
-//				System.out.println("itereator wird hneu angelegt!");
 			}
-			System.out.println("itereator wird nicht neu angelegt!");
+			
 			Task newTask = taskIterator.next();
-		
-			
-					
-			
-			
-			RemoteViews remoteViews = new RemoteViews(context.getPackageName(),	R.layout.widget_layout);
-			System.out.println("nach RemoteView");
-			// Set the text
+			RemoteViews remoteViews = new RemoteViews(context.getPackageName(),
+					R.layout.widget_layout);
 			remoteViews.setTextViewText(R.id.update, newTask.getTitle());
 
-			// Register an onClickListener
 			Intent intent = new Intent(context, ToDoListActivity.class);
 
 			intent.setAction(AppWidgetManager.ACTION_APPWIDGET_UPDATE);
 			intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS, appWidgetIds);
 
-
-			PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, intent, 0);
+			PendingIntent pendingIntent = PendingIntent.getActivity(context, 0,
+					intent, 0);
 			remoteViews.setOnClickPendingIntent(R.id.update, pendingIntent);
 
-			appWidgetManager.updateAppWidget(widgetId, remoteViews);	
-		
+			appWidgetManager.updateAppWidget(widgetId, remoteViews);
 		}
 	}
 }

@@ -1,6 +1,3 @@
-/**
- * 
- */
 package global42.todo.persistence;
 
 import android.content.Context;
@@ -9,7 +6,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 /**
  * @author Ulf
- *
+ * handles the internal sqlite database 
  */
 public class ToDoDatabaseHelper extends SQLiteOpenHelper {
 
