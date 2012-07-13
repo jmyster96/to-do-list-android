@@ -10,6 +10,10 @@ import android.widget.CheckBox;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
+/**
+ * @author Dominik
+ * Activity to change settings about the order and the kind of items to be displayed
+ */
 public class SettingsActivity extends Activity {
 	public static final int SettingsReader = MODE_WORLD_READABLE;
 	public static final String show_done_items_setting = "SHOW_DONE_ITEMS";
@@ -38,29 +42,29 @@ public class SettingsActivity extends Activity {
 				onShowDoneClick();
 			}
 		});
-		
+
 		sort_by_group = (RadioGroup) findViewById(R.id.SortByGroup);
-		
+
 		radio_priority = (RadioButton) findViewById(R.id.radio_Priority);
 		radio_creation = (RadioButton) findViewById(R.id.radio_CreationDate);
-		
+
 		radio_priority.setOnClickListener(new OnClickListener() {
 
 			public void onClick(View v) {
 				onGroupClick();
 			}
 		});
-		
-		
+
 		radio_creation.setOnClickListener(new OnClickListener() {
 
 			public void onClick(View v) {
 				onGroupClick();
 			}
 		});
-		
-		int sortBy = myPrefs.getInt(selected_radio_button_setting, ListSorting.DateOfCreation.getId());
-		
+
+		int sortBy = myPrefs.getInt(selected_radio_button_setting,
+				ListSorting.DateOfCreation.getId());
+
 		switch (ListSorting.getListSortingFor(sortBy)) {
 		case Priority:
 			radio_priority.setChecked(true);
@@ -73,8 +77,10 @@ public class SettingsActivity extends Activity {
 
 	}
 
+	/**
+	 * changed status of checkbox, whether done items should be visible
+	 */
 	public void onShowDoneClick() {
-
 		SharedPreferences myPrefs = this.getSharedPreferences("myPrefs",
 				MODE_WORLD_READABLE);
 		SharedPreferences.Editor prefsEditor = myPrefs.edit();
@@ -85,21 +91,23 @@ public class SettingsActivity extends Activity {
 		prefsEditor.commit();
 	}
 
+	/**
+	 * changed status of radio buttons in which order the {@link Task}s should be shown
+	 */
 	public void onGroupClick() {
 		int checkedButtonId = sort_by_group.getCheckedRadioButtonId();
 		SharedPreferences myPrefs = this.getSharedPreferences("myPrefs",
 				MODE_WORLD_READABLE);
 		SharedPreferences.Editor prefsEditor = myPrefs.edit();
-		
-		if(checkedButtonId == R.id.radio_CreationDate){
-			prefsEditor.putInt(selected_radio_button_setting, ListSorting.DateOfCreation.getId());
-		}else{
-			prefsEditor.putInt(selected_radio_button_setting, ListSorting.Priority.getId());
+
+		if (checkedButtonId == R.id.radio_CreationDate) {
+			prefsEditor.putInt(selected_radio_button_setting,
+					ListSorting.DateOfCreation.getId());
+		} else {
+			prefsEditor.putInt(selected_radio_button_setting,
+					ListSorting.Priority.getId());
 		}
-		
-		
+
 		prefsEditor.commit();
-
 	}
-
 }

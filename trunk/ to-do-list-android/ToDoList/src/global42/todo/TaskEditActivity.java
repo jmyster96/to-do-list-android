@@ -10,9 +10,13 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RatingBar;
 
+/**
+ * @author Dominik
+ * Activity to edit or add a {@link Task}
+ */
 public class TaskEditActivity extends Activity {
 	private Task currentTask = null;
-	
+
 	private EditText editTitle;
 	private RatingBar ratingBarPriority;
 	private EditText editComment;
@@ -26,7 +30,7 @@ public class TaskEditActivity extends Activity {
 		editTitle = (EditText) findViewById(R.id.editTaskEditTitle);
 		ratingBarPriority = (RatingBar) findViewById(R.id.ratingBarEditTaskPriority);
 		editComment = (EditText) findViewById(R.id.editTaskEditComment);
-		 
+
 		buttonSave = (Button) findViewById(R.id.buttonEditTaskSave);
 		buttonSave.setOnClickListener(new OnClickListener() {
 			public void onClick(View v) {
@@ -36,22 +40,27 @@ public class TaskEditActivity extends Activity {
 
 		Bundle extras = getIntent().getExtras();
 		if (extras != null) {
-			currentTask = (Task)extras.getSerializable("taskObject");
+			currentTask = (Task) extras.getSerializable("taskObject");
 			editTitle.setText(currentTask.getTitle());
-			ratingBarPriority.setRating(currentTask.getPriority().getPriority());
+			ratingBarPriority
+					.setRating(currentTask.getPriority().getPriority());
 			editComment.setText(currentTask.getComment());
-			//String test = extras.getString("taskObject");
 		}
 	}
 
+	/**
+	 * method called after user clicks the save button saves the entered data
+	 * and saves the new {@link Task} or updates the edited one
+	 */
 	private void onButtonSaveClick() {
 		currentTask.setTitle(editTitle.getText().toString());
 		currentTask.setComment(editComment.getText().toString());
-		currentTask.setPriority(TaskPriority.getTaskPriorityFor((int) ratingBarPriority.getRating()));
+		currentTask.setPriority(TaskPriority
+				.getTaskPriorityFor((int) ratingBarPriority.getRating()));
 
 		TasksDataSource tasksDataSource = new TasksDataSource(this);
 		tasksDataSource.save(currentTask);
-		
+
 		Intent intent = new Intent();
 		setResult(RESULT_OK, intent);
 		finish();

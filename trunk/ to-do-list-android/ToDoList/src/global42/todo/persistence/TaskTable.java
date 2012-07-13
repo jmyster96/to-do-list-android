@@ -8,7 +8,7 @@ import android.util.Log;
 
 /**
  * @author Ulf
- *
+ * represent of the table "tasks" in the database
  */
 public class TaskTable {
 	
@@ -30,15 +30,26 @@ public class TaskTable {
 		+ COLUMN_PRIORITY + " integer(2) not null, "
 		+ COLUMN_COMMENT + " text not null);";
 
+	/**
+	 * creates the table "tasks" in the given database
+	 * @param {@link SQLiteDatabase} database which should be used
+	 */
 	public static void onCreate(SQLiteDatabase database) {
 		database.execSQL(TABLE_TASKS_CREATE_COMMAND);
 	}
 
-	public static void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+	/**
+	 * deletes the old version of the table "tasks" and generates the new version
+	 * all data will be removed
+	 * @param {@link SQLiteDatabase} database which should be used
+	 * @param {@link Integer} oldVersion from which should be updated
+	 * @param {@link Integer} newVersion to which should be updated
+	 */
+	public static void onUpgrade(SQLiteDatabase database, int oldVersion, int newVersion) {
 		Log.w(ToDoDatabaseHelper.class.getName(),
 				"Upgrading database from version " + oldVersion + " to "
 						+ newVersion + ", which will destroy all old data");
-		db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME);
-		onCreate(db);
+		database.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME);
+		onCreate(database);
 	}
 }

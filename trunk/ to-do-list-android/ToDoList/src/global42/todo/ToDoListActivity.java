@@ -18,6 +18,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 
+/**
+ * @author Dominik
+ * Activity of the main screen containing the {@link Task} list and the add button
+ */
 public class ToDoListActivity extends Activity {
 	private EditText titleTextField;
 	private Button addButton;
@@ -38,9 +42,8 @@ public class ToDoListActivity extends Activity {
 		taskList = (LinearLayout) findViewById(R.id.taskList);
 
 		addButton.setOnClickListener(new OnClickListener() {
-
 			public void onClick(View v) {
-				onButtonClick();
+				onAddButtonClick();
 			}
 		});
 	}
@@ -51,30 +54,44 @@ public class ToDoListActivity extends Activity {
 		this.updateList();
 	}
 
-	public void onButtonClick() {
+	/**
+	 * method is called after the "Add" button is clicked
+	 * quick add a task or intent activity to add a new task
+	 */
+	public void onAddButtonClick() {
 		if (titleTextField.getText().length() == 0) {
 			Task task = new Task();
 			switchToEdit(task);
 		} else {
 			Task newTask = new Task(titleTextField.getText().toString());
-			dataSource.insert(newTask);
+			dataSource.save(newTask);
 			titleTextField.setText("");
 			updateList();
 		}
 	}
 
+	/**
+	 * method called after a user clicked on an item in the task list to edit the item
+	 * @param {@link Task} task the user clicked on  
+	 */
 	public void onItemClick(Task clickedTask) {
 		this.switchToEdit(clickedTask);
 	}
 
+	/**
+	 * open the edit activity of a particular task
+	 * @param {@link Task} task to be edited
+	 */
 	private void switchToEdit(Task task) {
 		Intent intent = new Intent(this, TaskEditActivity.class);
 		intent.putExtra("taskObject", task);
 		startActivityForResult(intent, 1);
 	}
 
+	/**
+	 * update the task list using the defined preferences (e. g. order) and using the database
+	 */
 	private void updateList() {
-
 		SharedPreferences myPrefs = this.getSharedPreferences("myPrefs",
 				MODE_WORLD_READABLE);
 		int sortBy = myPrefs.getInt(
@@ -114,9 +131,13 @@ public class ToDoListActivity extends Activity {
 		return true;
 	}
 
+	/**
+	 * method will be called after user clicked the "done" button
+	 * @param {@link Task} task the user wants to set as "done"
+	 */
 	public void onSetDoneClick(Task task) {
 		task.setStatus(TaskStatus.Done);
-		dataSource.insert(task);
+		dataSource.save(task);
 		updateList();
 	}
 }

@@ -9,6 +9,10 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+/**
+ * @author Dominik
+ * extension of the linear layout to represent a row in the list of {@link Task}s
+ */
 public class TaskItemView extends LinearLayout {
 	private Task task;
 	private ImageView priority;
@@ -16,6 +20,12 @@ public class TaskItemView extends LinearLayout {
 	private ImageButton checkButton;
 	private ToDoListActivity callingActivity;
 
+	/**
+	 * constructor to create a new row in the list of {@link Task}s
+	 * @param {@link Context} current context 
+	 * @param {@link Task} task to be represented by this row
+	 * @param {@link ToDoListActivity} activity
+	 */
 	public TaskItemView(Context context, Task task, ToDoListActivity activity) {
 		super(context);
 		this.setBackgroundResource(R.drawable.widget_background_transparent);
@@ -37,11 +47,13 @@ public class TaskItemView extends LinearLayout {
 		}
 
 		else if (tp.priority == 2) {
-			this.priority.setImageResource(R.drawable.ic_normal_transparent_small);
+			this.priority
+					.setImageResource(R.drawable.ic_normal_transparent_small);
 		}
 
 		else if (tp.priority == 3) {
-			this.priority.setImageResource(R.drawable.ic_high_transparent_small);
+			this.priority
+					.setImageResource(R.drawable.ic_high_transparent_small);
 		}
 
 		this.title = new TextView(context);
@@ -82,6 +94,9 @@ public class TaskItemView extends LinearLayout {
 		});
 	}
 
+	/**
+	 * @return {@link Task} task represented by this row
+	 */
 	public Task getTask() {
 		return this.task;
 	}
