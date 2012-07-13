@@ -1,6 +1,7 @@
 package global42.todo;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.ImageButton;
@@ -17,6 +18,7 @@ public class TaskItemView extends LinearLayout {
 
 	public TaskItemView(Context context, Task task, ToDoListActivity activity) {
 		super(context);
+		this.setBackgroundResource(R.drawable.widget_background);
 		this.task = task;
 		this.callingActivity = activity;
 
@@ -31,18 +33,21 @@ public class TaskItemView extends LinearLayout {
 		tp = task.getPriority();
 
 		if (tp.priority == 1) {
-			this.priority.setImageResource(R.drawable.ic_low);
+			this.priority.setImageResource(R.drawable.ic_low_transparent);
 		}
 
 		else if (tp.priority == 2) {
-			this.priority.setImageResource(R.drawable.ic_normal);
+			this.priority.setImageResource(R.drawable.ic_normal_transparent);
 		}
 
 		else if (tp.priority == 3) {
-			this.priority.setImageResource(R.drawable.ic_high);
+			this.priority.setImageResource(R.drawable.ic_high_transparent);
 		}
 
 		this.title = new TextView(context);
+		this.title.setTextColor(Color.BLACK);
+		this.title.setGravity(Gravity.CENTER_HORIZONTAL);
+		this.title.setGravity(Gravity.CENTER_VERTICAL);
 		this.title.setMinimumWidth(310);
 		this.title.setGravity(Gravity.CENTER);
 		this.title.setText(this.task.getTitle());
@@ -50,10 +55,9 @@ public class TaskItemView extends LinearLayout {
 		this.checkButton = new ImageButton(context);
 
 		if (this.task.getStatus() == TaskStatus.Done) {
-			checkButton.setImageResource(R.drawable.done);
-		} else {
-			this.checkButton.setImageResource(R.drawable.black);
-		}
+			checkButton.setImageResource(R.drawable.done_transparent);
+		} 
+
 		this.checkButton.setMinimumHeight(84);
 		this.checkButton.setMinimumWidth(84);
 		this.checkButton.setMaxHeight(84);
