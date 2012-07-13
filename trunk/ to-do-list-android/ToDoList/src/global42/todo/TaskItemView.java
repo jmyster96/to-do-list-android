@@ -18,7 +18,7 @@ public class TaskItemView extends LinearLayout {
 
 	public TaskItemView(Context context, Task task, ToDoListActivity activity) {
 		super(context);
-		this.setBackgroundResource(R.drawable.widget_background);
+		this.setBackgroundResource(R.drawable.widget_background_transparent);
 		this.task = task;
 		this.callingActivity = activity;
 
@@ -53,10 +53,9 @@ public class TaskItemView extends LinearLayout {
 		this.title.setText(this.task.getTitle());
 
 		this.checkButton = new ImageButton(context);
-
 		if (this.task.getStatus() == TaskStatus.Done) {
 			checkButton.setImageResource(R.drawable.done_transparent);
-		} 
+		}
 
 		this.checkButton.setMinimumHeight(84);
 		this.checkButton.setMinimumWidth(84);
